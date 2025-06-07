@@ -147,3 +147,8 @@ codcoins = [500, 500, 500, 100, 100, 100, 100]
 codcoins[3:] = [300, 300, 300, 300]
 
 print(codcoins) # [500, 500, 500, 300, 300, 300, 300]
+
+# или
+codcoins = [500, 500, 500, 100, 100, 100, 100]
+for i in range(3, len(codcoins)):
+    codcoins[i] += 300
