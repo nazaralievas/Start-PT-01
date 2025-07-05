@@ -19,13 +19,22 @@ with app.app_context():
 
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
+    tasks = Todo.query.all()
     if request.method == "POST":
         text = request.form['text']
         task = Todo(text=text)
         db.session.add(task)
         db.session.commit()
         return redirect('/')
-    return render_template('homepage.html')
+    return render_template('homepage.html', tasks=tasks)
+
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    task = Todo.query.get(id)
+    db.session.delete(task)
+    db.session.commit()
+    return redirect('/')
 
 
 @app.route('/about')
