@@ -37,6 +37,16 @@ def delete(id):
     return redirect('/')
 
 
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    task = Todo.query.get(id)
+    if request.method == 'POST':
+        task.text = request.form['text']
+        db.session.commit()
+        return redirect('/')
+    return render_template('update.html', task=task)
+
+
 @app.route('/about')
 def about():
     return render_template('about.html')
