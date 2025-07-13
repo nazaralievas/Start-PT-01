@@ -1,6 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
 {% for movie in movies %}
-    <h3>{{ movie.name }}</h3>
+    <a href="/movie_detail/{{movie.id}}"><h3>{{ movie.name }}</h3></a>
     <h3>{{ movie.genre }}</h3>
-    <h3>{{ movie.description }}</h3>
-    <img width="200" height="150" src="{{ movie.poster }}">
+
+    <a href="/movie_detail/{{movie.id}}">
+        <img width="200" height="150" src="{{ movie.poster }}">
+    </a>
 {% endfor %}
+
+{% endblock content %}
