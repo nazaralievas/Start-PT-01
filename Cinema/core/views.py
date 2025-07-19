@@ -4,7 +4,7 @@ from .models import Movie
 def movie_list(request):
     q = request.GET.get('q')
     if q:
-        movies = Movie.objects.filter(name__icontains=q)
+        movies = Movie.objects.filter(name_lower__icontains=q.lower())
     else:
         movies = Movie.objects.all()
     return render(request, 'core/movie_list.html', {'movies': movies})
