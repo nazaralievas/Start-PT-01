@@ -4,7 +4,27 @@
 <h3>Название: {{ movie.name }}</h3>
 <h5>Жанр: {{ movie.genre }}</h5>
 <p>Описание: {{ movie.description }}</p>
-<img src="{{ movie.poster }}" alt="">
-{{ movie.comments }}
+<img src="{{ movie.poster }}">
+<br>
+{% if user.is_authenticated %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Отправить</button>
+    </form>
+{% else %}
+    <h3><a target="_blank" href="/register">Зарегистрируйтесь</a></h3>
+    <h3>Или <a target="_blank" href="/login">войдите</a> в аккаунт</h3>
+{% endif %}
+<br>
+{% for comment in movie.comments.all %}
+<ul>
+    <li>{{ comment.user.username }}: {{ comment.text }} <small>{{ comment.date_created }}</small>
+        {% if user == comment.user %}
+            <button><a href="/edit_comment/{{ comment.id }}">Редактировать</a></button>
+        {% endif %}
+    </li> 
+</ul>
+{% endfor %}
 
 {% endblock content %}

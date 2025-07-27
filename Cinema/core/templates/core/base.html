@@ -10,6 +10,13 @@
 </head>
 <nav class="navbar navbar-light bg-light justify-content-between">
   <a class="navbar-brand" href="/">Все фильмы</a>
+
+  {% if user.is_authenticated %}
+    <a href="/logout"><button>Выйти</button></a>
+  {% else %}
+    <a href="/login"><button>Войти</button></a>
+  {% endif %}
+
   <form class="form-inline" method="GET" action="{% url 'movie_list' %}">
     <input name="q" class="form-control mr-sm-2" type="search" placeholder="Введите название фильма..." aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>

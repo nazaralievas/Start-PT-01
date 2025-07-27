@@ -3,5 +3,9 @@ from .views import *
 
 urlpatterns = [
     path('', movie_list, name='movie_list'),
-    path('movie_detail/<int:id>/', movie_detail, name='movie_detail')
+    path('movie_detail/<int:id>/', movie_detail, name='movie_detail'),
+    path('login/', login, name='login'),
+    path('logout/', logout, name='logout'),
+    path('register/', register, name='register'),
+    path('edit_comment/<int:id>/', edit_comment, name='edit_comment'),
 ]
