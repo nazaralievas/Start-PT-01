@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<h2>Вы действительно хотите удалить этот комментарий?</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <button>Удалить</button>
+    <a href="/movie_detail/{{ comment.movie.id }}">Отмена</a>
+</form>
+
+{% endblock content %}

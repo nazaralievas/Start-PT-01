@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">👤 Личный кабинет</h2>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Пользователь: {{ user_info.username }}</h5>
+        </div>
+    </div>
+
+    <h4>💬 Ваши комментарии:</h4>
+
+    {% if user_info.comments.all %}
+        <ul class="list-group">
+            {% for comment in user_info.comments.all %}
+                <li class="list-group-item">
+                    {{ comment.text }} <small class="text-muted">к фильму <strong>{{ comment.movie }}</strong></small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-muted">Вы пока не оставили ни одного комментария.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,14 +1,23 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+<h2 class="mb-4">Список фильмов</h2>
 
-{% for movie in movies %}
-    <a href="/movie_detail/{{movie.id}}"><h3>{{ movie.name }}</h3></a>
-    <h3>{{ movie.genre }}</h3>
-
-    <a href="/movie_detail/{{movie.id}}">
-        <img width="200" height="150" src="{{ movie.poster }}">
-    </a>
-{% endfor %}
-
-{% endblock content %}
+<div class="row">
+    {% for movie in movies %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <a href="/movie_detail/{{ movie.id }}">
+                <img class="card-img-top" src="{{ movie.poster.url }}" alt="{{ movie.name }}" style="height: 200px; object-fit: cover;">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="/movie_detail/{{ movie.id }}" class="text-dark">{{ movie.name }}</a>
+                </h5>
+                <p class="card-text"><strong>Жанр:</strong> {{ movie.genre }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

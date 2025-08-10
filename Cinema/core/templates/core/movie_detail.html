@@ -4,7 +4,7 @@
 <h3>Название: {{ movie.name }}</h3>
 <h5>Жанр: {{ movie.genre }}</h5>
 <p>Описание: {{ movie.description }}</p>
-<img src="{{ movie.poster }}">
+<img src="{{ movie.poster.url }}">
 <br>
 {% if user.is_authenticated %}
     <form method="POST">
@@ -22,6 +22,7 @@
     <li>{{ comment.user.username }}: {{ comment.text }} <small>{{ comment.date_created }}</small>
         {% if user == comment.user %}
             <button><a href="/edit_comment/{{ comment.id }}">Редактировать</a></button>
+            <button><a href="/delete_comment/{{ comment.id }}">Удалить</a></button>
         {% endif %}
     </li> 
 </ul>

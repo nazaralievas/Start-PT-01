@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden
-from .models import Movie, Comment
+
+from .models import Movie, Comment, User
 from .forms import CommentForm
 
 def movie_list(request):
@@ -66,6 +67,15 @@ def register(request):
     return render(request, 'core/register.html', {'form': form})
 
 
+def user_profile(request, id):
+    user_info = User.objects.get(id=id)
+
+    if user_info != request.user:
+        return HttpResponseForbidden('Вход воспрещён!')
+
+    return render(request, 'core/user_profile.html', {'user_info': user_info})
+
+
 def edit_comment(request, id):
     comment = Comment.objects.get(id=id)
 
@@ -80,3 +90,25 @@ def edit_comment(request, id):
 
     form = CommentForm(instance=comment)
     return render(request, 'core/edit_comment.html', {'comment': comment, 'form': form})
+
+
+def delete_comment(request, id):
+    comment = get_object_or_404(Comment, id=id)
+
+    if comment.user != request.user:
+        return HttpResponseForbidden('Вы не можете удалить этот комментарий!')
+    
+    if request.method == "POST":
+        comment.delete()
+        return redirect('movie_detail', id=comment.movie.id)
+
+    return render(request, 'core/delete_comment.html', {'comment': comment})
+
+
+import requests
+
+def random_dog(request):
+    url = "https://dog.ceo/api/breeds/image/random"
+    response = requests.get(url)
+    dog_image_url = response.json().get("message")
+    return render(request, 'core/random_dog.html', {'dog_image_url': dog_image_url})
